@@ -1,4 +1,4 @@
 
-# API
-https://nominatim.openstreetmap.org/ui/search.html?q=<street_name>
-example : https://github.com/mmaciejkowalski/L.Highlight/blob/main/js/leaflet-highlight.js#L53
+# Resources
+[API streetname->geojson](https://nominatim.openstreetmap.org/ui/search.html?q=rue+botzaris++paris+france)
+[CSV JS parsing](https://www.youtube.com/watch?v=oencyPPBTUQ)
