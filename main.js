@@ -16,24 +16,22 @@ function add_street_to_map(geojson) {
 }
 
 //############################################# Parse CSV #############################################
-// Inspired from https://www.youtube.com/watch?v=oencyPPBTUQ
-filecontent=null;
-NEWLINE="\r\n";
-DELIMETER=";";
+(function () {
+    var input_file = document.getElementById("csv_file");
 
-function readText(event) {
-    console.log("file changed")
-    // file_content =  event.target.files.item(0).text().then(
-    //
-    let file = event.target.files.item(0);
-    parseCSV(file);
-}
+    input_file.addEventListener('change', function () {
+        if (!!input_file.files && input_file.files.length >0 ) {
+            parseCSV(input_file.files[0]);
+        }
+    })
+})();
+filecontent=null;
+
 
 function parseCSV(file) {
     if (!file || !FileReader) {
-        console.log("error reading file")
+        console.log("error reading file");
         return;
-
     }
     var reader = new FileReader();
     reader.onload = function (e) {
@@ -42,8 +40,9 @@ function parseCSV(file) {
     reader.readAsText(file);
 }
 
+const NEWLINE="\r\n";
+const DELIMETER=";";
 function toTable(text) {
-    console.log("otot")
     var rows = text.split(NEWLINE);
     rows.shift();
     rows.forEach(e=> {
@@ -51,45 +50,14 @@ function toTable(text) {
         street_coor= e.split(DELIMETER)[11];
         if (street_coor) {
             street_coor = street_coor.replaceAll("\"\"","\\\"");
-            jsy = JSON.parse(street_coor);
-            add_street_to_map(JSON.parse(jsy));
+            street_coor = JSON.parse(street_coor);
+            add_street_to_map(JSON.parse(street_coor));
         }
     });
 
-}
-//############################################# Display street #############################################
-
-API = "https://nominatim.openstreetmap.org/search.php?polygon_geojson=1&format=jsonv2&q=";
-
-
-
-function get_street_geojson(streetname, city = "paris", country = "france") {
-    $.get(API + streetname + " " + city + " " + country, function (data, status) {
-        console.log(data);
-        best_match = []
-        line = null;
-        if (data) {
-            // Find the best match (currently => the longest street)
-            for (var i = 0; i < data.length; i++) {
-                geojson = data[i]["geojson"];
-                if (geojson["coordinates"].length > best_match.length) {
-                    line = geojson;
-                    best_match = geojson["coordinates"]
-                }
-            }
-        }
-        if (line) {
-            L.geoJSON(line, {style: street_style}).addTo(map);
-        } else {
-            alert("error parsing data for " + streetname);
-        }
-    });
 }
 
 // Examples
-var test = {"coordinates": [[[2.3725072486978758, 48.83067815557762], [2.3726723590367795, 48.83054298299068]], [[2.3725072486978758, 48.83067815557762], [2.3723569183786366, 48.83078726979362]], [[2.373541885380288, 48.83117405980581], [2.3725072486978758, 48.83067815557762]], [[2.373541885380288, 48.83117405980581], [2.373757695056593, 48.831065206077106]], [[2.373541885380288, 48.83117405980581], [2.3732745537679922, 48.83129652044232]], [[2.373711838717456, 48.83132622385628], [2.373541885380288, 48.83117405980581]]],
-    "type": "MultiLineString"}
-
 var botzaris = {
     "geojson": {
         "type": "LineString",
@@ -97,4 +65,3 @@ var botzaris = {
     }
 }
 add_street_to_map(botzaris.geojson)
-add_street_to_map(test2)
