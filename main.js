@@ -6,14 +6,13 @@ L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
 }).addTo(map);
 
 let street_style = {
-    "color": "#002aff",
     "weight": 5,
-    "opacity": 0.65
+    "opacity": 0.85
 };
 
-function add_street_to_map(geojson, streetName) {
+function add_street_to_map(geojson, streetName, color) {
     console.log("Adding street: " + streetName)
-    L.geoJSON(geojson, {style: street_style}).bindTooltip(streetName).addTo(map);
+    L.geoJSON(geojson, {style: {"color":color,...street_style}}).bindTooltip(streetName).addTo(map);
 }
 
 //############################################# Parse CSV #############################################
@@ -35,10 +34,54 @@ function parseCSV(file) {
     let reader = new FileReader();
     reader.onload = function (e) {
         toTable(e.target.result);
+        generate_legend();
     }
     reader.readAsText(file);
+
 }
 
+////// COLORS parsing //////
+mapped_colors = new Map();
+colors = []
+function choose_color(category) {
+    if (! category) {
+        return "#002aff";
+    }
+    colors = ["#002aff", "#1c2833", "#e6b800","#5b2c6f","#b34700","#b30059","#264d00","#86592d"]
+    content = mapped_colors.get(category);
+    if (! content) { // Unknown category
+        color = colors[mapped_colors.size % colors.length]
+        mapped_colors.set(category, [1,color])
+    }
+    else {
+        content[0] += 1;
+        color = content[1];
+    }
+    return color;
+}
+
+function add_color_to_legend(textContent, color) {
+    legend = document.getElementById("legend");
+    span_color = document.createElement("span");
+    span_color.style.backgroundColor = color;
+    textNode = document.createElement("p");
+    textNode.innerText = textContent;
+    legend.appendChild(span_color);
+    legend.appendChild(textNode);
+}
+function generate_legend() {
+console.log(mapped_colors)
+    legend = document.getElementById("legend");
+    console.log(mapped_colors)
+    if (mapped_colors.size > 0) {
+        legendNode = document.createElement("p");
+        legendNode.innerText="Légende : ";
+        legend.appendChild(legendNode);
+    }
+    for (const [category, content] of mapped_colors.entries()) {
+        add_color_to_legend(category+"("+content[0]+")",content[1]);
+    }
+}
 function toTable(text) {
     let NEWLINE;
     let DELIMITER = ";";
@@ -57,17 +100,34 @@ function toTable(text) {
     index_street_name = header.indexOf('L_LONGMIN');
     index_coordonates = header.indexOf('Geometry');
     index_is_displayed = header.indexOf("display");
+    index_category = header.indexOf("catégorie");
     rows.shift();
     rows.forEach(e => {
         content = e.split(DELIMITER)
         street_coor = content[index_coordonates];
+        street_name = content[index_street_name];
         // Street found and should be displayed (a 'display' column might exist)
+
+        //bug fix for some street format
+        if (street_coor && index_is_displayed !== -1 && !content[index_is_displayed]) {
+            alert("Error with street format ->" + street_name+ "\n...skipping this element");
+            console.log("Error with street format: " + content)
+            content[index_is_displayed] = "false";
+        }
         if (street_coor && (index_is_displayed === -1 || content[index_is_displayed].toLowerCase() === "true")) {
             street_coor = street_coor.replaceAll("\"\"", "\\\"");
             street_coor = JSON.parse(street_coor);
-            add_street_to_map(JSON.parse(street_coor), content[index_street_name]);
+            category = content[index_category]
+            color = choose_color(category)
+            if (index_category === -1) {
+                streetTagDisplay = street_name
+            } else {
+                streetTagDisplay = street_name + '('+category+color+")"
+            }
+            add_street_to_map(JSON.parse(street_coor), streetTagDisplay, color);
+            console.log("Done importing street: "+ street_name )
         } else {
-            console.log("Ignoring street: " + content[index_street_name])
+            console.log("Ignoring street: " + street_name)
         }
     });
 }
