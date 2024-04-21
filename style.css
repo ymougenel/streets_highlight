@@ -1,24 +1,37 @@
+#map_content {
+    display: flex;
+    flex-direction: row;
+    height: 80%;
+}
 #map {
-    height: 90%;
-    margin-right: 100px;
+    height: 100%;
+    width: 90%;
+    border: solid black 2px;
 }
 
 #legend {
-    float: right;
+    margin-left: 15px;
+    display: flex;
+    flex-direction: column;
+    font-size: 1em;
+}
+
+.category {
     display: flex;
     flex-direction: row;
-    justify-content: center;
-    font-size: 0.70em;
+}
+
+.category p {
+    margin: 4px
 }
 
 #legend span {
-    margin-left: 8px;
+    align-self: center;
+    margin-left: 3px;
     margin-right: 3px;
     background-color: blue;
     border: solid black 2px;
     border-radius: 5px;
-    width: 12px;
-}
-#action {
-    float: bottom;
+    width: 20px;
+    height: 15px;
 }

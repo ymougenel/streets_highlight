@@ -62,12 +62,15 @@ function choose_color(category) {
 
 function add_color_to_legend(textContent, color) {
     legend = document.getElementById("legend");
+    div_block = document.createElement("div")
+    div_block.className="category"
     span_color = document.createElement("span");
     span_color.style.backgroundColor = color;
     textNode = document.createElement("p");
     textNode.innerText = textContent;
-    legend.appendChild(span_color);
-    legend.appendChild(textNode);
+    div_block.appendChild(span_color);
+    div_block.appendChild(textNode);
+    legend.appendChild(div_block);
 }
 function generate_legend() {
 console.log(mapped_colors)
