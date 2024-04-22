@@ -73,17 +73,21 @@ function add_color_to_legend(textContent, color) {
     legend.appendChild(div_block);
 }
 function generate_legend() {
-console.log(mapped_colors)
     legend = document.getElementById("legend");
-    console.log(mapped_colors)
+    total_count = 0
     if (mapped_colors.size > 0) {
         legendNode = document.createElement("p");
         legendNode.innerText="Légende : ";
         legend.appendChild(legendNode);
     }
     for (const [category, content] of mapped_colors.entries()) {
-        add_color_to_legend(category+"("+content[0]+")",content[1]);
+        count = content[0]
+        total_count += count
+        add_color_to_legend(category+" ("+count+")",content[1]);
     }
+    totalNode = document.createElement("p");
+    totalNode.innerText="total => " + total_count;
+    legend.appendChild(totalNode);
 }
 function toTable(text) {
     let NEWLINE;
@@ -125,10 +129,10 @@ function toTable(text) {
             if (index_category === -1) {
                 streetTagDisplay = street_name
             } else {
-                streetTagDisplay = street_name + '('+category+color+")"
+                streetTagDisplay = street_name + ' ('+category+")"
             }
             add_street_to_map(JSON.parse(street_coor), streetTagDisplay, color);
-            console.log("Done importing street: "+ street_name )
+            console.log("Done importing street: "+ street_name + " ("+category+")")
         } else {
             console.log("Ignoring street: " + street_name)
         }
