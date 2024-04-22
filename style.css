@@ -1,12 +1,61 @@
+body {
+    padding-top: 40px;
+    margin: 0px;
+}
+header {
+  height:40px;
+  width:100%;
+  position:fixed;
+  top: 0;
+  background:rgba(0,0,0,0.9);
+}
+header li {
+  float: left;
+  list-style-type:none;
+  border-right: 1px solid #252525;
+}
+header li a {
+  float: left;
+  width: 98px;
+  height: 12px;
+  padding: 14px 7px;
+  color: #fff;
+  text-decoration: none;
+  text-align: center;
+  text-transform: uppercase;
+  font-weight: 700;
+  letter-spacing: 1px;
+  font: normal 62.5% "proxima-nova-alt", Helvetica, Arial, sans-serif;
+}
+header .title {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  float: left;
+  width: 200px;
+  height: 40px;
+  background-color: #fde624;
+  font-weight: bold;
+  font-family: impact, serif;
+}
+header .logo {
+    float: right;
+    width: 40px;
+    height: 40px;
+    border: solid red 2px;
+}
+
 #map_content {
     display: flex;
     flex-direction: row;
-    height: 80%;
+    height: 90%;
 }
+
+
 #map {
     height: 100%;
     width: 90%;
-    border: solid black 1x;
+    border: solid black 1px;
 }
 
 #legend {

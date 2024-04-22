@@ -5,21 +5,37 @@
           crossorigin=""/>
     <link href="style.css" rel="stylesheet"/>
 </head>
+<body>
+
+
+<header>
+    <div class="title">Une Histoire de rue</div>
+    <div class="nav">
+<!--        <ul>-->
+<!--            <li id="show-nails">-->
+<!--                <a href="">Volume I</a>-->
+<!--            </li>-->
+<!--            <li><a href="">Volume II</a></li>-->
+<!--            <li><a href="">About</a></li>-->
+<!--        </ul>-->
+    </div>
+</header>
 <div id="map_content">
     <div id="map"></div>
     <div id="legend"></div>
-
 </div>
 
 <br/><br/>
 <div id="action">
-<center>
-    <label>Import CSV => </label>
-    <input id="csv_file" type="file" accept="text/csv" value="import CSV"/>
-</center>
+    <center>
+        <label>Import CSV => </label>
+        <input id="csv_file" type="file" accept="text/csv" value="import CSV"/>
+    </center>
 </div>
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
         integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
         crossorigin=""></script>
 <script src="main.js"></script>
+</body>
+
 </html>
