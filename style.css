@@ -59,10 +59,10 @@ header .logo {
 }
 
 #legend {
-    margin-left: 15px;
+    margin-left: 5px;
     display: flex;
     flex-direction: column;
-    font-size: 1em;
+    font-size: 1.05em;
 }
 
 .category {
@@ -81,6 +81,6 @@ header .logo {
     background-color: blue;
     border: solid black 2px;
     border-radius: 5px;
-    width: 20px;
+    width: 25px;
     height: 15px;
 }
