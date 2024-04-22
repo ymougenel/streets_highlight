@@ -1,10 +1,21 @@
 //############################################# INIT MAP #############################################
-let map = L.map('map').setView([48.866667, 2.333], 13);
-L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
-    maxZoom: 19,
-    attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-}).addTo(map);
-
+const map = L.map('map').setView([48.866667, 2.333], 13);
+const accessToken = 'T9AXpuzRABgCTPv1ZobtztZ7ODNt5WfPuUAXi7IOA4vZuYiBTDCwtcJD6qYByT9U';
+// List of all our defaults styles names
+const styles = ['jawg-streets', 'jawg-sunny', 'jawg-terrain', 'jawg-dark', 'jawg-light'];
+const baselayers = {};
+// Creating one tile layers for each style
+styles.forEach((style) =>
+  baselayers[style] = L.tileLayer(
+    `https://tile.jawg.io/${style}/{z}/{x}/{y}.png?access-token=${accessToken}`, {
+      attribution: '<a href="http://jawg.io" title="Tiles Courtesy of Jawg Maps" target="_blank" class="jawg-attrib">&copy; <b>Jawg</b>Maps</a> | <a href="https://www.openstreetmap.org/copyright" title="OpenStreetMap is open data licensed under ODbL" target="_blank" class="osm-attrib">&copy; OSM contributors</a>',
+    }
+  )
+);
+// Set the default layer when you open the map
+baselayers['jawg-light'].addTo(map);
+// Associating each style name to its tile layer
+L.control.layers(baselayers).addTo(map);
 let street_style = {
     "weight": 5,
     "opacity": 0.85
