@@ -35,11 +35,12 @@ header .title {
   justify-content: center;
   align-items: center;
   float: left;
-  width: 200px;
+  width: 250px;
   height: 40px;
   background-color: #fde624;
   font-weight: bold;
   font-family: impact, serif;
+  font-size: 1.2em;
 }
 header .logo {
     float: right;
