@@ -30,11 +30,25 @@ function add_street_to_map(geojson, streetName, color) {
 (function () {
     let input_file = document.getElementById("csv_file");
 
-    input_file.addEventListener('change', function () {
-        if (!!input_file.files && input_file.files.length > 0) {
-            parseCSV(input_file.files[0]);
-        }
-    })
+    if (input_file) {
+        input_file.addEventListener('change', function () {
+            if (!!input_file.files && input_file.files.length > 0) {
+                parseCSV(input_file.files[0]);
+            }
+        })
+    }
+    else {
+    $.ajax({
+            type: "GET",
+            url: "https://raw.githubusercontent.com/ymougenel/streets_highlight/master/voie_short.csv",
+            dataType: "text",
+            success: function(data) {
+                toTable(data);
+                console.log(data);
+            }
+         });
+    }
+
 })();
 
 function parseCSV(file) {

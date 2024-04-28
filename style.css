@@ -9,10 +9,13 @@ header {
   top: 0;
   background:rgba(0,0,0,0.9);
 }
+header ul {
+    margin: 0px;
+}
 header li {
   float: left;
   list-style-type:none;
-  border-right: 1px solid #252525;
+  border-right: 1px solid #5e561a;
 }
 header li a {
   float: left;
@@ -25,7 +28,7 @@ header li a {
   text-transform: uppercase;
   font-weight: 700;
   letter-spacing: 1px;
-  font: normal 62.5% "proxima-nova-alt", Helvetica, Arial, sans-serif;
+  font: normal 0.85em "proxima-nova-alt", Helvetica, Arial, sans-serif;
 }
 header .title {
   display: flex;
@@ -42,6 +45,10 @@ header .logo {
     float: right;
     height: 40px;
     background-color: #ebedf0;;
+}
+.selected {
+    text-decoration: underline;
+    font-size: 0.9em;
 }
 
 #map_content {

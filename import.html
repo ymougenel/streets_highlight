@@ -4,23 +4,20 @@
           integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
           crossorigin=""/>
     <link href="style.css" rel="stylesheet"/>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 </head>
 <body>
-
-
 <header>
     <div class="title">Une Histoire de rue</div>
     <div class="nav">
         <ul>
             <li>
-                <a class="selected" href="./index.html">Home</a>
+                <a href="./index.html">Home</a>
             </li>
-            <li id="show-nails">
-                <a href="./import.html">Import</a>
+            <li >
+                <a class="selected" href="./import.html">Import</a>
             </li>
-<!--            <li><a href="">Volume II</a></li>-->
-<!--            <li><a href="">About</a></li>-->
+            <!--            <li><a href="">Volume II</a></li>-->
+            <!--            <li><a href="">About</a></li>-->
         </ul>
         <a href="https://github.com/ymougenel/streets_highlight">
             <img class="logo" title="Github Project" src="https://static-00.iconduck.com/assets.00/github-icon-2048x1999-d37ckpm6.png" alt="github logo">
@@ -33,6 +30,12 @@
 </div>
 
 <br/><br/>
+<div id="action">
+    <center>
+        <label>Import CSV => </label>
+        <input id="csv_file" type="file" accept="text/csv" value="import CSV"/>
+    </center>
+</div>
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
         integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
         crossorigin=""></script>
