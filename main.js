@@ -142,10 +142,10 @@ function streets_counts_and_length(street_coor) {
 function handle_category(category, length) {
     str_data = streets_data.get(category);
     if (! str_data) {
-        streets_data.set(category,[1,len])
+        streets_data.set(category,[1,length])
     } else {
         str_data[0] += 1 // Increment category count
-        str_data[1] += len // Increase category length
+        str_data[1] += length // Increase category length
         streets_data.set(category,str_data)
     }
 }
