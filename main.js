@@ -40,7 +40,7 @@ function add_street_to_map(geojson, streetName, color) {
     else {
         $.ajax({
             type: "GET",
-            url: "https://raw.githubusercontent.com/ymougenel/streets_highlight/master/voie_short.csv",
+            url: "https://raw.githubusercontent.com/ymougenel/streets_highlight/master/voie-Paris-sur-le-champs.csv",
             dataType: "text",
             success: function(data) {
                 toTable(data);
