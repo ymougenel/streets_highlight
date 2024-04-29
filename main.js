@@ -38,15 +38,15 @@ function add_street_to_map(geojson, streetName, color) {
         })
     }
     else {
-    $.ajax({
+        $.ajax({
             type: "GET",
             url: "https://raw.githubusercontent.com/ymougenel/streets_highlight/master/voie_short.csv",
             dataType: "text",
             success: function(data) {
                 toTable(data);
-                console.log(data);
+                console.log(total_length)
             }
-         });
+        });
     }
 
 })();
@@ -64,7 +64,7 @@ function parseCSV(file) {
     reader.readAsText(file);
 
 }
-
+total_length = 0;
 function toTable(text) {
     let NEWLINE;
     let DELIMITER = ";";
@@ -84,18 +84,22 @@ function toTable(text) {
     index_coordonates = header.indexOf('Geometry');
     index_is_displayed = header.indexOf("display");
     index_category = header.indexOf("catégorie");
-    rows.shift();
+    rows.shift(); // ignore CSV header
     rows.forEach(e => {
         content = e.split(DELIMITER)
         street_coor = content[index_coordonates];
         street_name = content[index_street_name];
         // Street found and should be displayed (a 'display' column might exist)
-
+        let len = 0;
         //bug fix for some street format
         if (street_coor && index_is_displayed !== -1 && !content[index_is_displayed]) {
             alert("Error with street format ->" + street_name+ "\n...skipping this element");
             console.log("Error with street format: " + content)
             content[index_is_displayed] = "false";
+        }
+        else if (street_coor) {
+            len = streets_counts_and_length(street_coor)
+            total_length += len;
         }
         if (street_coor && (index_is_displayed === -1 || content[index_is_displayed].toLowerCase() === "true")) {
             street_coor = street_coor.replaceAll("\"\"", "\\\"");
@@ -105,7 +109,8 @@ function toTable(text) {
             if (index_category === -1) {
                 streetTagDisplay = street_name
             } else {
-                streetTagDisplay = street_name + ' ('+category+")"
+                handle_category(category, len);
+                streetTagDisplay = street_name + ' - '+Math.floor(len*1000)/1000+'km ('+category+")"
             }
             add_street_to_map(JSON.parse(street_coor), streetTagDisplay, color);
             console.log("Done importing street: "+ street_name + " ("+category+")")
@@ -115,6 +120,35 @@ function toTable(text) {
     });
 }
 
+streets_data = new Map();
+function streets_counts_and_length(street_coor) {
+    ystreet_coor = street_coor.replaceAll("\"\"", "\\\"");
+    ystreet_coor = JSON.parse(ystreet_coor);
+    ystreet_coor = JSON.parse(ystreet_coor);
+    street_type = ystreet_coor["type"]
+    if (street_type =="LineString") {
+                 var line = turf.lineString(ystreet_coor["coordinates"]);
+    }
+    else if (street_type == "MultiLineString") {
+                 var line = turf.multiLineString(ystreet_coor["coordinates"]);
+
+    }
+    else {
+        return 0
+    }
+    return turf.length(line);
+
+}
+function handle_category(category, length) {
+    str_data = streets_data.get(category);
+    if (! str_data) {
+        streets_data.set(category,[1,len])
+    } else {
+        str_data[0] += 1 // Increment category count
+        str_data[1] += len // Increase category length
+        streets_data.set(category,str_data)
+    }
+}
 //############################################# Display Legend #############################################
 mapped_colors = new Map();
 colors = []
@@ -155,7 +189,9 @@ function generate_legend() {
         legendNode.innerText="Légende : ";
         legend.appendChild(legendNode);
     }
+    console.log(streets_data)
     for (const [category, content] of mapped_colors.entries()) {
+        console.log(category+ "------"+ streets_data[category])
         count = content[0]
         total_count += count
         add_color_to_legend(category+" ("+count+")",content[1]);
