@@ -61,7 +61,7 @@ header .logo {
 
 #map {
     height: 100%;
-    width: 90%;
+    width: 80%;
     border: solid black 1px;
 }
 
@@ -81,7 +81,11 @@ header .logo {
     margin: 4px
 }
 
-#legend span {
+td, th {
+    padding: 5px;
+}
+td span {
+    display: inline-block;
     align-self: center;
     margin-left: 3px;
     margin-right: 3px;

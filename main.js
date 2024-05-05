@@ -44,7 +44,7 @@ function add_street_to_map(geojson, streetName, color) {
             dataType: "text",
             success: function(data) {
                 toTable(data);
-                console.log(total_length)
+                generate_legend();
             }
         });
     }
@@ -64,7 +64,8 @@ function parseCSV(file) {
     reader.readAsText(file);
 
 }
-total_length = 0;
+let total_length = 0;
+let total_count = 0;
 function toTable(text) {
     let NEWLINE;
     let DELIMITER = ";";
@@ -98,6 +99,7 @@ function toTable(text) {
             content[index_is_displayed] = "false";
         }
         else if (street_coor) {
+            total_count += 1
             len = streets_counts_and_length(street_coor)
             total_length += len;
         }
@@ -110,7 +112,7 @@ function toTable(text) {
                 streetTagDisplay = street_name
             } else {
                 handle_category(category, len);
-                streetTagDisplay = street_name + ' - '+Math.floor(len*1000)/1000+'km ('+category+")"
+                streetTagDisplay = street_name + ' - '+format_long(len, 2)+'km ('+category+")"
             }
             add_street_to_map(JSON.parse(street_coor), streetTagDisplay, color);
             console.log("Done importing street: "+ street_name + " ("+category+")")
@@ -140,6 +142,8 @@ function streets_counts_and_length(street_coor) {
 
 }
 function handle_category(category, length) {
+    category = category.replaceAll('"','') //Weird side effect when string contains accents
+    category = category.normalize();
     str_data = streets_data.get(category);
     if (! str_data) {
         streets_data.set(category,[1,length])
@@ -170,7 +174,6 @@ function choose_color(category) {
 }
 
 function add_color_to_legend(textContent, color) {
-    legend = document.getElementById("legend");
     div_block = document.createElement("div")
     div_block.className="category"
     span_color = document.createElement("span");
@@ -179,24 +182,64 @@ function add_color_to_legend(textContent, color) {
     textNode.innerText = textContent;
     div_block.appendChild(span_color);
     div_block.appendChild(textNode);
-    legend.appendChild(div_block);
+    return div_block
 }
 function generate_legend() {
     legend = document.getElementById("legend");
-    total_count = 0
     if (mapped_colors.size > 0) {
         legendNode = document.createElement("h2");
         legendNode.innerText="Légende : ";
         legend.appendChild(legendNode);
+        table = document.createElement("table");
+        header = document.createElement("tr");
+        c1 = document.createElement("th");
+        c1.innerText = "Couleur"
+        c2 = document.createElement("th");
+        c2.innerText = "Catégorie"
+        c4 = document.createElement("th");
+        c4.innerText = "Compte"
+        c5 = document.createElement("th");
+        c5.innerText = "Longueur"
+        header.appendChild(c1)
+        header.appendChild(c2)
+        header.appendChild(c4)
+        header.appendChild(c5)
+        table.appendChild(header)
+        legend.appendChild(table)
     }
-    console.log(streets_data)
     for (const [category, content] of mapped_colors.entries()) {
-        console.log(category+ "------"+ streets_data[category])
-        count = content[0]
-        total_count += count
-        add_color_to_legend(category+" ("+count+")",content[1]);
+        let str_data = streets_data.get(category)
+        row = generate_row(content[1],category,str_data[0],format_long(str_data[1],2))
+        table.appendChild(row)
     }
     totalNode = document.createElement("p");
-    totalNode.innerText="total => " + total_count;
+    totalNode.innerText="Voirie totale : " + total_count + " rues, " + format_long(total_length,2)+ " km";
     legend.appendChild(totalNode);
+}
+
+function generate_row(color,category, count, length) {
+    row = document.createElement("tr");
+    col1 = document.createElement("td");
+    span_color = document.createElement("span");
+    span_color.style.backgroundColor = color;
+    col1.appendChild(span_color)
+    col2 = document.createElement("td");
+    col2.innerText = capitalizeFirstLetter(category)
+    col3 = document.createElement("td");
+    col3.innerText = count
+    col4 = document.createElement("td");
+    col4.innerText = length + " km"
+    row.appendChild(col1)
+    row.appendChild(col2)
+    row.appendChild(col3)
+    row.appendChild(col4)
+    return row
+}
+
+function format_long(number, digit_keep) {
+    power = Math.pow(10,digit_keep)
+    return Math.floor(number * power) / power
+}
+function capitalizeFirstLetter(string) {
+    return string.charAt(0).toUpperCase() + string.slice(1);
 }
