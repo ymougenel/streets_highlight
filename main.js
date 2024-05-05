@@ -197,7 +197,7 @@ function generate_legend() {
         c2 = document.createElement("th");
         c2.innerText = "Catégorie"
         c4 = document.createElement("th");
-        c4.innerText = "Compte"
+        c4.innerText = "Nombre"
         c5 = document.createElement("th");
         c5.innerText = "Longueur"
         header.appendChild(c1)
@@ -226,9 +226,9 @@ function generate_row(color,category, count, length) {
     col2 = document.createElement("td");
     col2.innerText = capitalizeFirstLetter(category)
     col3 = document.createElement("td");
-    col3.innerText = count
+    col3.innerText = count +" ("+format_long(count/total_count*100,2)+"%)"
     col4 = document.createElement("td");
-    col4.innerText = length + " km"
+    col4.innerText = length + " km" + " ("+format_long(length/total_length*100,2)+"%)"
     row.appendChild(col1)
     row.appendChild(col2)
     row.appendChild(col3)
@@ -238,7 +238,7 @@ function generate_row(color,category, count, length) {
 
 function format_long(number, digit_keep) {
     power = Math.pow(10,digit_keep)
-    return Math.floor(number * power) / power
+    return Math.round(number * power) / power
 }
 function capitalizeFirstLetter(string) {
     return string.charAt(0).toUpperCase() + string.slice(1);

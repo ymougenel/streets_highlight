@@ -61,7 +61,7 @@ header .logo {
 
 #map {
     height: 100%;
-    width: 80%;
+    width: 75%;
     border: solid black 1px;
 }
 
@@ -87,11 +87,22 @@ td, th {
 td span {
     display: inline-block;
     align-self: center;
-    margin-left: 3px;
-    margin-right: 3px;
+
     background-color: blue;
     border: solid black 2px;
     border-radius: 5px;
     width: 25px;
     height: 15px;
+}
+
+
+.about_sections {
+    display:flex;
+    height: 100%;
+}
+.about_section {
+    background-color: #E8E8E8;
+    padding: 15px;
+    border: solid black 1px;
+    flex: 1;
 }

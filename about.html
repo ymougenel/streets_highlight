@@ -1,0 +1,52 @@
+<html>
+<head>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+          integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+          crossorigin=""/>
+    <link href="style.css" rel="stylesheet"/>
+</head>
+<body>
+<header>
+    <div class="title">Une Histoire de rue</div>
+    <div class="nav">
+        <ul>
+            <li>
+                <a href="./index.html">Home</a>
+            </li>
+            <li >
+                <a href="./import.html">Import</a>
+            </li>
+            <li >
+                <a class="selected" href="./about.html">A propos</a>
+            </li>
+        </ul>
+        <a href="https://github.com/ymougenel/streets_highlight">
+            <img class="logo" title="Github Project" src="https://static-00.iconduck.com/assets.00/github-icon-2048x1999-d37ckpm6.png" alt="github logo">
+        </a>
+    </div>
+</header>
+<div class="about_sections">
+    <div class="about_section">
+       <h1>Présentation du projet</h1>
+        TODO Quentin
+    </div>
+    <div class="about_section">
+        <h1>Le développement</h1>
+        <h2>Fiche technique</h2>
+        <b>Histoire de rue</b> est un projet open-source (code source <a href="https://github.com/ymougenel/streets_highlight">ici</a>).
+        <br>TODO contribution
+        <h2>Les données</h2>
+        Les données proviennent de <a href="https://opendata.paris.fr/explore/dataset/voie/export/">OpenData Paris</a>, avec un travail minutieux de labélisation effectué par <i>Sur le Champs</i>
+        <br />
+        => <a href="https://github.com/ymougenel/streets_highlight/blob/master/voie-Paris-sur-le-champs.csv">Le fichier source</a> utilisé pour afficher les rues labélisées.
+        <h2>La cartographie</h2>
+        Le rendu de carte est possible grace aux outils géographiques suivantes :
+        <ul>
+            <li><a href="https://leafletjs.com/">Leaflet</a> pour le rendu de carte</li>
+            <li><a href="https://www.jawg.io/en/">Jawg Maps</a> pour la génération dynamique de tuiles et les fonds de carte personnalisés.</li>
+        </ul>
+    </div>
+</div>
+</body>
+
+</html>
