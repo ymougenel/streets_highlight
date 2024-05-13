@@ -1,9 +1,11 @@
-<html>
+<html xmlns="http://www.w3.org/1999/html">
 <head>
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
           integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
           crossorigin=""/>
+    <link href="header.css" rel="stylesheet"/>
     <link href="style.css" rel="stylesheet"/>
+    <link href="import.css" rel="stylesheet"/>
 </head>
 <body>
 <header>
@@ -11,7 +13,7 @@
     <div class="nav">
         <ul>
             <li>
-                <a href="./index.html">Home</a>
+                <a href="./index.html">Accueil</a>
             </li>
             <li >
                 <a class="selected" href="./import.html">Import</a>
@@ -29,13 +31,25 @@
     <div id="map"></div>
     <div id="legend"></div>
 </div>
-
-<br/><br/>
 <div id="action">
-    <center>
-        <label>Import CSV => </label>
-        <input id="csv_file" type="file" accept="text/csv" value="import CSV"/>
-    </center>
+    <center><h1>Comment importer sa propre carte ?</h1></center>
+    <div id="guidelines">
+        <div class="guideline">
+            <h2>1. Télécharger l'ensemble des rues parisiennes</h2>
+            Télécharger sur le site <a href="https://opendata.paris.fr/explore/dataset/voie/export/">OpenData Paris</a>
+            les données au format CSV.
+        </div>
+        <div class="guideline">
+            <h2>2. Optionnel : Filtrer et/ou catégoriser</h2>
+            Filter : Ajouter une colonne nommée <i>display</i>, marquée à la valeur true les rues à afficher.<br>
+            Catégoriser : Ajouter une colonne nommée <i>category</i>, les catégories seront automatiquement prises en compte durant l'import.
+        </div>
+
+        <div class="guideline">
+            <h2>3. Importer le fichier</h2>
+            <input id="csv_file" type="file" accept="text/csv" value="import CSV"/>
+        </div>
+    </div>
 </div>
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
         integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="

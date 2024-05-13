@@ -1,63 +1,8 @@
-body {
-    padding-top: 40px;
-    margin: 0px;
-}
-header {
-  height:40px;
-  width:100%;
-  position:fixed;
-  top: 0;
-  background:rgba(0,0,0,0.9);
-}
-header ul {
-    margin: 0px;
-}
-header li {
-  float: left;
-  list-style-type:none;
-  border-right: 1px solid #5e561a;
-}
-header li a {
-  float: left;
-  width: 98px;
-  height: 12px;
-  padding: 14px 7px;
-  color: #fff;
-  text-decoration: none;
-  text-align: center;
-  text-transform: uppercase;
-  font-weight: 700;
-  letter-spacing: 1px;
-  font: normal 0.85em "proxima-nova-alt", Helvetica, Arial, sans-serif;
-}
-header .title {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  float: left;
-  width: 250px;
-  height: 40px;
-  background-color: #fde624;
-  font-weight: bold;
-  font-family: impact, serif;
-  font-size: 1.2em;
-}
-header .logo {
-    float: right;
-    height: 40px;
-    background-color: #ebedf0;;
-}
-.selected {
-    text-decoration: underline;
-    font-size: 0.9em;
-}
-
 #map_content {
     display: flex;
     flex-direction: row;
-    height: 90%;
+    height: 95%;
 }
-
 
 #map {
     height: 100%;
@@ -96,18 +41,6 @@ td span {
     border-radius: 5px;
     width: 30px;
     height: 15px;
-}
-
-
-.about_sections {
-    display:flex;
-    height: 100%;
-}
-.about_section {
-    background-color: #E8E8E8;
-    padding: 15px;
-    border: solid black 1px;
-    flex: 1;
 }
 
 /* Smartphones (landscape) ----------- */

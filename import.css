@@ -1,0 +1,17 @@
+#guidelines {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+#action h1 {
+    font-size: 1.5em;
+    margin-bottom: 0px;
+}
+
+#guidelines h2 {
+    font-size: 1.2em;
+}
+
+#map_content {
+    height: 80%;
+}

@@ -1,0 +1,10 @@
+.about_sections {
+    display:flex;
+    height: 100%;
+}
+.about_section {
+    background-color: #E8E8E8;
+    padding: 15px;
+    border: solid black 1px;
+    flex: 1;
+}
