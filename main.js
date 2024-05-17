@@ -43,10 +43,10 @@ function add_street_to_map(geojson, streetName, color) {
             url: "https://raw.githubusercontent.com/ymougenel/streets_highlight/master/voie-Paris-sur-le-champ-mini.csv",
             dataType: "text",
             success: function(data) {
+                toTable(data);
                 // Pre-computed values for minified CSV version
                 total_length=1894.73
                 total_count=6563
-                toTable(data);
                 generate_legend();
             }
         });
