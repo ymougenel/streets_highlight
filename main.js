@@ -87,7 +87,7 @@ function toTable(text) {
     index_street_name = header.indexOf('L_LONGMIN');
     index_coordonates = header.indexOf('Geometry');
     index_is_displayed = header.indexOf("display");
-    index_category = header.indexOf("catégorie");
+    index_category = header.indexOf("category");
     rows.shift(); // ignore CSV header
     rows.forEach(e => {
         content = e.split(DELIMITER)
