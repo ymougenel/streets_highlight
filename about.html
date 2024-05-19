@@ -32,25 +32,61 @@
         <h1>Présentation du projet</h1>
         Histoire de rue est un site web permettant de visualiser des rues à partir d'un fichier CSV.
         <br>Il s'agit d'un projet open-source (code source <a href="https://github.com/ymougenel/streets_highlight">-> ici</a>).
-        <br>TODO contribution
+<!--        <br>TODO contribution-->
         <h2>Les données</h2>
-        Les données présentées sur la page d'accueil proviennent de <a href="https://opendata.paris.fr/explore/dataset/voie/export/">OpenData Paris</a>, avec un travail minutieux de labélisation effectué par <i>Sur le Champs</i>.
+        Les données présentées sur la page d'accueil proviennent de <a href="https://opendata.paris.fr/explore/dataset/voie/export/">OpenData Paris</a>, avec un travail minutieux de labélisation effectué par <i><a href="https://www.youtube.com/@Surlechamp">Sur le Champs</a></i>.
         <br />
         => <a href="https://github.com/ymougenel/streets_highlight/blob/master/voie-Paris-sur-le-champs.csv">Le fichier source</a> utilisé pour afficher les rues labélisées.
         <h3>Importer sa carte</h3>
-        Une fonctionnalité d'import est possible.
-        TODO détailler fonctionnement
+        Une fonctionnalité d'import est possible. Il vous suffit d'importer un fichier CSV (pint-virgule comme séparateur) ayant les colonnes suivantes :
+        <br />
+        <br />
+        <table class="tg">
+            <thead>
+            <tr>
+                <th class="tg-0pky">Nom de la colonne</th>
+                <th class="tg-0pky">Requis</th>
+                <th class="tg-0pky">Format de données</th>
+                <th class="tg-0pky">Commentaires</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td class="tg-0pky">L_LONGMIN<br></td>
+                <td class="tg-0pky">Oui</td>
+                <td class="tg-0pky">Texte</td>
+                <td class="tg-0pky">Le nom de la rue a afficher</td>
+            </tr>
+            <tr>
+                <td class="tg-0pky">Geometry</td>
+                <td class="tg-0pky">Oui</td>
+                <td class="tg-0pky">GeoJson<br></td>
+                <td class="tg-0pky">Les coordonnées de la rues </td>
+            </tr>
+            <tr>
+                <td class="tg-0pky">display</td>
+                <td class="tg-0pky">Non</td>
+                <td class="tg-0pky">Booléen (true/false)</td>
+                <td class="tg-0pky">Si la rue doit être affichée (en l'absence de cette colonne, toutes les rues sont affichées</td>
+            </tr>
+            <tr>
+                <td class="tg-0pky">category</td>
+                <td class="tg-0pky">Non</td>
+                <td class="tg-0pky">Texte</td>
+                <td class="tg-0pky">La catégorisation de la rue</td>
+            </tr>
+            </tbody>
+        </table>
         <h2>La cartographie</h2>
         Le rendu de carte est possible grace aux outils géographiques suivantes :
         <ul>
-            <li><a href="https://leafletjs.com/">Leaflet</a> pour le rendu de carte</li>
-            <li><a href="https://www.jawg.io/en/">Jawg Maps</a> pour la génération dynamique de tuiles et les fonds de carte personnalisés.</li>
-            <li><a href="https://www.openstreetmap.fr/">Open Street Map</a> pour le contenu cartographique.</li>
+            <li><a href="https://leafletjs.com/">Leaflet</a> est la librairie permettant la navigation sur la carte</li>
+            <li><a href="https://www.jawg.io/en/">Jawg Maps</a> Jawg Maps le fournisseur de fonds de carte dynamique et personalisable, basé sur de la donnée <a href="https://www.openstreetmap.fr/">Open Street Map</a>  </li>
         </ul>
     </div>
-    <div class="about_section">
-        <h1>Initiative Sur le Champs</h1>
-    </div>
+<!--    <div class="about_section">-->
+<!--        <h1>Initiative Sur le Champs</h1>-->
+<!--    </div>-->
 </div>
 </body>
 
